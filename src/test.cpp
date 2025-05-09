@@ -38,7 +38,7 @@ void ipp_calc(cv::Mat& src_image, cv::Mat& ipp_dx, cv::Mat& ipp_dy, cv::Mat& ipp
     cvoi::ipp::mt_tl::sobel_dx(src_image, ipp_dx);
     cvoi::ipp::mt_tl::sobel_dy(src_image, ipp_dy);
 
-    cvoi::ipp::phase(ipp_dx, ipp_dy, ipp_pha);
+    // cvoi::ipp::phase(ipp_dx, ipp_dy, ipp_pha);
     cvoi::ipp::magnitude(ipp_dx, ipp_dy, ipp_mag);
 
 
@@ -131,16 +131,22 @@ void test_detect_opencv(cv::Mat& cvImage, cv::Mat& cvMag, cv::Mat& cvPha, int LO
 int main(int argc, char** argv)
 {
     const bool DEBUG = true;
-    if (argc < 2)
-    {
-        std::cerr << "No test files given. Pass the path of image files to main." << std::endl;
-        return (-1);
-    }
+    // if (argc < 2)
+    // {
+    //     std::cerr << "No test files given. Pass the path of image files to main." << std::endl;
+    //     return (-1);
+    // }
+
+
+
+    std::string filename = "/data/so_small_starry_25.png";
+    std::string srcPath = CMAKE_CURRENT_SOURCE_DIR + filename;
 
     const int LOOP_NUM = 1;
     cout << endl
          << endl
-         << "This program run dilation on picture " << argv[1] << " for " << LOOP_NUM << " times."
+        //  << "This program run dilation on picture " << argv[1] << " for " << LOOP_NUM << " times."
+         << "This program run dilation on picture " << srcPath << " for " << LOOP_NUM << " times."
          << endl
          << endl
          << endl;
@@ -151,7 +157,8 @@ int main(int argc, char** argv)
 
     // display_device_info(mQueue);
 
-    cv::Mat src_image = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
+    // cv::Mat src_image = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
+    cv::Mat src_image = cv::imread(srcPath, cv::IMREAD_GRAYSCALE);
 
     cv::Mat cvMag;
     cv::Mat cvPha;
