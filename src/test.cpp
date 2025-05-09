@@ -42,13 +42,13 @@ void ipp_calc(cv::Mat& src_image, cv::Mat& ipp_dx, cv::Mat& ipp_dy, cv::Mat& ipp
     cvoi::ipp::magnitude(ipp_dx, ipp_dy, ipp_mag);
 
 
-    printf("ipp_calc  display  ipp  dx  Mat \n\n");
+    printf("\n\nipp_calc  display  ipp  dx  Mat \n\n");
     displayArrayInt16(ipp_dx, true);
 
-    printf("ipp_calc  display  ipp  dy  Mat \n\n");
+    printf("\n\nipp_calc  display  ipp  dy  Mat \n\n");
     displayArrayInt16(ipp_dy, true);
 
-    printf("ipp_calc  display  ipp  mag  Mat \n\n");
+    printf("\n\nipp_calc  display  ipp  mag  Mat \n\n");
     displayArrayFloat(ipp_mag, true);
 }
 
@@ -172,9 +172,9 @@ int main(int argc, char** argv)
         printf("display opencv mag Mat \n\n");
     displayArrayFloat(cvMag, DEBUG);
 
-    if (DEBUG)
-        printf("display ipp    mag Mat \n\n");
-    displayArrayFloat(ippMag, DEBUG);
+    // if (DEBUG)
+    //     printf("display ipp    mag Mat \n\n");
+    // displayArrayFloat(ippMag, DEBUG);
 
     printf("\ncompare correctness opencv magnitude vs ipp magnitude \n");
     comparecv_32f(cvMag, ippMag);
