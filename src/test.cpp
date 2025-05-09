@@ -4,13 +4,13 @@
 // Licensed under the Intel Proprietary License
 // =============================================================
 
-#include <CL/sycl.hpp>
+// #include <CL/sycl.hpp>
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include "device_info.h"
+// #include "device_info.h"
 #include "ipp_magnitude.h"
 #include "ipp_sobel.h"
-#include "sycl_median.h"
+// #include "sycl_median.h"
 #include "common/slog.hpp"
 #include "common/stimer.hpp"
 #include "util.h"

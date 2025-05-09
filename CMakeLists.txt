@@ -29,10 +29,10 @@ find_package(IPP REQUIRED)
 
 if(WIN32)
 set(CMAKE_CXX_COMPILER "icx")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Qtbb -fsycl")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Qtbb ")
 else()
 set(CMAKE_CXX_COMPILER "icpx")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsycl -march=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -march=native")
 # Replace the line above with  any one of below 2 lines to enable sycl-targets to ADL-P iGPU, which
 # enables SYCL AOT (ahead of time) feature.
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsycl -fsycl-targets=intel_gpu_adl_p ")
@@ -55,7 +55,6 @@ else()
 endif()
 
 set(util_srcs
-    src/device_info.cpp
     src/util.cpp
 )
 
@@ -69,15 +68,8 @@ set(common_srcs
     src/common/stimer.hpp
 )
 
-# add_executable(simple simple.cpp)
-# add_sycl_to_target(TARGET simple  SOURCES simple.cpp )
-# add_executable(sy01 sy01.cpp device_info.cpp)
 
 add_executable(test_lithium_pipeline "src/test.cpp" ${ipp_srcs} ${util_srcs}  ${common_srcs} )
 
 target_link_libraries(test_lithium_pipeline  ${OpenCV_LIBS} ${IPP_LIBRARIES})
 
-# By following OneAPI DPCPP SYCL rules, it is mandatory for the source code embedded with SYCL code
-# to declaredly add to SYCL target. As a result, a .sycl file is generated for each SYCL source file.
-# Call func add_sycl_to_target() defined in file FindComputeCpp.cmake to fulfill this rule.
-# add_sycl_to_target(TARGET test_lithium_pipeline SOURCES src/sycl_median.cpp src/device_info.cpp )
