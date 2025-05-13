@@ -73,11 +73,8 @@ void test_detect_ipp_sycl(/*cl::sycl::queue myQueue,*/ cv::Mat& cvImage, cv::Mat
     {
         CvoiTimer atimer; ///< Start benchmakring timer
 
-        // cvoi::ipp::sycl_median_with_border(myQueue, cvImage, borderImage, outImage);
 
-        cv::medianBlur(cvImage, outImage, 9);
-
-        ipp_calc(outImage, ippdx, ippdy, outMag, outPha);
+        ipp_calc(cvImage, ippdx, ippdy, outMag, outPha);
 
         atimer.printElapsed("ipp mixed with sycl calculate time", 1);
     }
@@ -101,10 +98,10 @@ void test_detect_opencv(cv::Mat& cvImage, cv::Mat& cvMag, cv::Mat& cvPha, int LO
     {
         CvoiTimer atimer; ///< Start benchmakring timer
 
-        cv::medianBlur(cvImage, outImage, 9);
+        // cv::medianBlur(cvImage, outImage, 9);
 
-        cv::Sobel(outImage, dx, CV_32FC1, 1, 0, 3, 1.0, 0.0, cv::BORDER_REPLICATE);
-        cv::Sobel(outImage, dy, CV_32FC1, 0, 1, 3, 1.0, 0.0, cv::BORDER_REPLICATE);
+        cv::Sobel(cvImage, dx, CV_32FC1, 1, 0, 3, 1.0, 0.0, cv::BORDER_REPLICATE);
+        cv::Sobel(cvImage, dy, CV_32FC1, 0, 1, 3, 1.0, 0.0, cv::BORDER_REPLICATE);
         cv::magnitude(dx, dy, cvMag);
         // cv::phase(dx, dy, cvPha);
 
@@ -112,34 +109,18 @@ void test_detect_opencv(cv::Mat& cvImage, cv::Mat& cvMag, cv::Mat& cvPha, int LO
     }
 }
 
-// class my_selector : public sycl::device_selector
-// {
-// public:
-//     int operator()(const sycl::device& dev) const override
-//     {
-//         if (dev.get_info<sycl::info::device::name>().find("Intel") != std::string::npos &&
-//             dev.get_platform().get_info<sycl::info::platform::name>().find("OpenCL Gra") !=
-//                 std::string::npos &&
-//             dev.get_info<sycl::info::device::name>().find("A770") == std::string::npos)
-//         {
-//             return 1;
-//         }
-//         return -1;
-//     }
-// };
+
+
 
 int main(int argc, char** argv)
 {
     const bool DEBUG = true;
-    // if (argc < 2)
-    // {
-    //     std::cerr << "No test files given. Pass the path of image files to main." << std::endl;
-    //     return (-1);
-    // }
 
 
 
-    std::string filename = "/data/so_small_starry_25.png";
+    // std::string filename = "/data/so_small_starry_25.png";
+    // std::string filename = "/data/b2.png";
+    std::string filename = "/data/r1.png";
     std::string srcPath = CMAKE_CURRENT_SOURCE_DIR + filename;
 
     const int LOOP_NUM = 1;
@@ -151,11 +132,7 @@ int main(int argc, char** argv)
          << endl
          << endl;
 
-    // queue mQueue{gpu_opencl_selector{}};
-    // queue mQueue{ cpu_opencl_selector{} };
-    // queue mQueue{sycl::gpu_selector_v};
 
-    // display_device_info(mQueue);
 
     // cv::Mat src_image = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
     cv::Mat src_image = cv::imread(srcPath, cv::IMREAD_GRAYSCALE);
@@ -172,9 +149,6 @@ int main(int argc, char** argv)
         printf("display opencv mag Mat \n\n");
     displayArrayFloat(cvMag, DEBUG);
 
-    // if (DEBUG)
-    //     printf("display ipp    mag Mat \n\n");
-    // displayArrayFloat(ippMag, DEBUG);
 
     printf("\ncompare correctness opencv magnitude vs ipp magnitude \n");
     comparecv_32f(cvMag, ippMag);
