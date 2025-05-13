@@ -69,7 +69,7 @@ set(common_srcs
 )
 
 
-add_executable(test_lithium_pipeline "src/test.cpp" ${ipp_srcs} ${util_srcs}  ${common_srcs} )
+add_executable(test_lithium_pipeline "src/test.cpp" ${ipp_srcs} ${util_srcs}   )
 
 target_link_libraries(test_lithium_pipeline  ${OpenCV_LIBS} ${IPP_LIBRARIES})
 

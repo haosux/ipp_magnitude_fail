@@ -10,9 +10,6 @@
 // #include "device_info.h"
 #include "ipp_magnitude.h"
 #include "ipp_sobel.h"
-// #include "sycl_median.h"
-#include "common/slog.hpp"
-#include "common/stimer.hpp"
 #include "util.h"
 
 using std::cout;
@@ -71,12 +68,9 @@ void test_detect_ipp_sycl(/*cl::sycl::queue myQueue,*/ cv::Mat& cvImage, cv::Mat
 
     for (int i = 0; i < LOOP_NUM; i++)
     {
-        CvoiTimer atimer; ///< Start benchmakring timer
-
 
         ipp_calc(cvImage, ippdx, ippdy, outMag, outPha);
 
-        atimer.printElapsed("ipp mixed with sycl calculate time", 1);
     }
 }
 
@@ -96,7 +90,6 @@ void test_detect_opencv(cv::Mat& cvImage, cv::Mat& cvMag, cv::Mat& cvPha, int LO
 
     for (int i = 0; i < LOOP_NUM; i++)
     {
-        CvoiTimer atimer; ///< Start benchmakring timer
 
         // cv::medianBlur(cvImage, outImage, 9);
 
@@ -105,7 +98,6 @@ void test_detect_opencv(cv::Mat& cvImage, cv::Mat& cvMag, cv::Mat& cvPha, int LO
         cv::magnitude(dx, dy, cvMag);
         // cv::phase(dx, dy, cvPha);
 
-        atimer.printElapsed("opencv calculate time", 1);
     }
 }
 
