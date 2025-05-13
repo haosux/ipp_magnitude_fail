@@ -4,10 +4,8 @@
 // Licensed under the Intel Proprietary License
 // =============================================================
 
-// #include <CL/sycl.hpp>
 #include <iostream>
 #include <opencv2/opencv.hpp>
-// #include "device_info.h"
 #include "ipp_magnitude.h"
 #include "ipp_sobel.h"
 #include "util.h"
@@ -142,20 +140,8 @@ int main(int argc, char** argv)
     displayArrayFloat(cvMag, DEBUG);
 
 
-    printf("\ncompare correctness opencv magnitude vs ipp magnitude \n");
-    comparecv_32f(cvMag, ippMag);
+    // printf("\ncompare correctness opencv magnitude vs ipp magnitude \n");
+    // comparecv_32f(cvMag, ippMag);
 
-    // if (DEBUG)
-    //     printf("display opencv phase Mat \n\n");
-    // displayArrayFloat(cvPha, false);
 
-    // if (DEBUG)
-    //     printf("display ipp phase Mat \n\n");
-    // displayArrayFloat(ippPha, false);
-
-    // printf("\ncompare correctness opencv phase vs ipp phase \n");
-    // comparecv_phase_32f(cvPha, ippPha);
-
-    // cv::imshow( "Linear Blend", src_image );
-    // cv::waitKey(0);
 }
