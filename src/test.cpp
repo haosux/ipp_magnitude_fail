@@ -72,32 +72,8 @@ void test_detect_ipp_sycl(/*cl::sycl::queue myQueue,*/ cv::Mat& cvImage, cv::Mat
     }
 }
 
-/**
- * @brief test function for opencv operators.
- *
- * @param[in] cvimage    input image to be calculated
- * @param[in] LOOP_NUM   Loop number
- */
-void test_detect_opencv(cv::Mat& cvImage, cv::Mat& cvMag, cv::Mat& cvPha, int LOOP_NUM)
-{
-    cv::Mat outImage;
-    cv::Mat dx;
-    cv::Mat dy;
-    // cv::Mat cvMag;
-    // cv::Mat cvPha;
 
-    for (int i = 0; i < LOOP_NUM; i++)
-    {
 
-        // cv::medianBlur(cvImage, outImage, 9);
-
-        cv::Sobel(cvImage, dx, CV_32FC1, 1, 0, 3, 1.0, 0.0, cv::BORDER_REPLICATE);
-        cv::Sobel(cvImage, dy, CV_32FC1, 0, 1, 3, 1.0, 0.0, cv::BORDER_REPLICATE);
-        cv::magnitude(dx, dy, cvMag);
-        // cv::phase(dx, dy, cvPha);
-
-    }
-}
 
 
 
@@ -132,16 +108,12 @@ int main(int argc, char** argv)
     cv::Mat ippMag;
     cv::Mat ippPha;
 
-    test_detect_opencv(src_image, cvMag, cvPha, LOOP_NUM);
+    printf("\n\ninput image  display \n\n");
+    displayArray(src_image, true);
+
     test_detect_ipp_sycl(/*mQueue,*/ src_image, ippMag, ippPha, LOOP_NUM);
 
-    if (DEBUG)
-        printf("display opencv mag Mat \n\n");
-    displayArrayFloat(cvMag, DEBUG);
 
-
-    // printf("\ncompare correctness opencv magnitude vs ipp magnitude \n");
-    // comparecv_32f(cvMag, ippMag);
 
 
 }
