@@ -12,7 +12,7 @@
 
 using std::cout;
 using std::endl;
-// using sycl::queue;
+
 
 /**
  * @brief An encapsulation function for IPP optimized operators.
@@ -54,7 +54,7 @@ void ipp_calc(cv::Mat& src_image, cv::Mat& ipp_dx, cv::Mat& ipp_dy, cv::Mat& ipp
  * @param[in] cvimage    input image to be calculated
  * @param[in] LOOP_NUM   Loop number
  */
-void test_detect_ipp_sycl(/*cl::sycl::queue myQueue,*/ cv::Mat& cvImage, cv::Mat& outMag,
+void test_detect_ipp_sycl(cv::Mat& cvImage, cv::Mat& outMag,
                           cv::Mat& outPha, int LOOP_NUM)
 {
     cv::Mat outImage;
@@ -92,15 +92,12 @@ int main(int argc, char** argv)
     const int LOOP_NUM = 1;
     cout << endl
          << endl
-        //  << "This program run dilation on picture " << argv[1] << " for " << LOOP_NUM << " times."
          << "This program run dilation on picture " << srcPath << " for " << LOOP_NUM << " times."
          << endl
          << endl
          << endl;
 
 
-
-    // cv::Mat src_image = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
     cv::Mat src_image = cv::imread(srcPath, cv::IMREAD_GRAYSCALE);
 
     cv::Mat cvMag;
@@ -111,7 +108,7 @@ int main(int argc, char** argv)
     printf("\n\ninput image  display \n\n");
     displayArray(src_image, true);
 
-    test_detect_ipp_sycl(/*mQueue,*/ src_image, ippMag, ippPha, LOOP_NUM);
+    test_detect_ipp_sycl(src_image, ippMag, ippPha, LOOP_NUM);
 
 
 
